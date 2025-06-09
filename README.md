@@ -155,4 +155,34 @@ Contribute to the project or create your own bot—it's open source!
 ### ⚠️ Please run only in a secure environment
 Using your bot, users can potentially harm your system. Utilize Docker or any secure environment, or specify allowed users via Telegram ID.
 
----
+---   from telegram import Update
+   from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+
+   # توکن ربات را در اینجا قرار دهید
+   TOKEN = 'YOUR_TOKEN_HERE'
+
+   def start(update: Update, context: CallbackContext) -> None:
+       update.message.reply_text('به گروه خوش آمدید! 🎉')
+
+   def echo(update: Update, context: CallbackContext) -> None:
+       user_message = update.message.text
+       update.message.reply_text(f'شما گفتید: {user_message} 😊')
+
+   def main() -> None:
+       updater = Updater(TOKEN)
+
+       dispatcher = updater.dispatcher
+
+       # Handler برای دستور start
+       dispatcher.add_handler(CommandHandler('start', start))
+
+       # Handler برای پیام‌های دریافتی
+       dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
+
+       # شروع ربات
+       updater.start_polling()
+       updater.idle()
+
+   if __name__ == '__main__':
+       main()
+   
