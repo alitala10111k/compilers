@@ -72,3 +72,4 @@ if you have installed gcc, g++ c/c++ compiler on your local system you can run c
 
 ==> Finally you can run it by your root directory whwre package.json file exists  
     by command `./node_modules/.bin/ts-node index.ts`  
+
