@@ -1,4 +1,4 @@
-# Realtime Input/Output compiler bot  
+ Realtime Input/Output compiler bot  
 by @PanditSiddharth  
 
 You can use this bot in telegram  
@@ -28,28 +28,28 @@ Just follow steps bellow -->
 ==> clone this repo in your own server  
 
 ```sh
-# You must required to install nodejs
-# installation command
+ You must required to install nodejs
+ installation command
 git clone "https://github.com/PanditSiddharth/compilers"
 
-# entering in iocompiler directiory
+ entering in iocompiler directiory
 cd iocompiler
 
-# Open config.ts file 
-# Add all configuration according to you
+ Open config.ts file 
+ Add all configuration according to you
 
-# install all node dependencies
+ install all node dependencies
 npm install
 
-# Run your bot
+ Run your bot
 node index
 
-# Any query ? see this readme to join support group
+ Any query ? see this readme to join support group
 ```
 
-==> ## Now set environment variables  
+==>  Now set environment variables  
 
-### Required enviroment var:  
+ Required enviroment var:  
 `TOKEN` = "Paste your telegram bot token in this" 
 
 if you have in local system make 
@@ -57,7 +57,7 @@ if you have in local system make
 
 if you have installed gcc, g++ c/c++ compiler on your local system you can run c programs in telegram without adding these both c/c++ in env variables
 
-### Optional environment var:
+ Optional environment var:
 
 `PYTHON` - Paste python full path in value     (find it by running command  `which python` or `which python3`)  
 `NODE` - Paste node js full path in value      (find it by running command  `which node`)  
