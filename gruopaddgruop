@@ -41,7 +41,7 @@ def message(update: Update, context: CallbackContext) -> None:
     update.callback_query.edit_message_text(text=message_text)
 
 def main() -> None:
-    updater = Updater("YOUR_TOKEN_HERE")
+    updater = Updater("8302421655:AAHCt4CVN44MTwguuBk5CQBlUqvYJlOHHt4")
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler("start", start))
