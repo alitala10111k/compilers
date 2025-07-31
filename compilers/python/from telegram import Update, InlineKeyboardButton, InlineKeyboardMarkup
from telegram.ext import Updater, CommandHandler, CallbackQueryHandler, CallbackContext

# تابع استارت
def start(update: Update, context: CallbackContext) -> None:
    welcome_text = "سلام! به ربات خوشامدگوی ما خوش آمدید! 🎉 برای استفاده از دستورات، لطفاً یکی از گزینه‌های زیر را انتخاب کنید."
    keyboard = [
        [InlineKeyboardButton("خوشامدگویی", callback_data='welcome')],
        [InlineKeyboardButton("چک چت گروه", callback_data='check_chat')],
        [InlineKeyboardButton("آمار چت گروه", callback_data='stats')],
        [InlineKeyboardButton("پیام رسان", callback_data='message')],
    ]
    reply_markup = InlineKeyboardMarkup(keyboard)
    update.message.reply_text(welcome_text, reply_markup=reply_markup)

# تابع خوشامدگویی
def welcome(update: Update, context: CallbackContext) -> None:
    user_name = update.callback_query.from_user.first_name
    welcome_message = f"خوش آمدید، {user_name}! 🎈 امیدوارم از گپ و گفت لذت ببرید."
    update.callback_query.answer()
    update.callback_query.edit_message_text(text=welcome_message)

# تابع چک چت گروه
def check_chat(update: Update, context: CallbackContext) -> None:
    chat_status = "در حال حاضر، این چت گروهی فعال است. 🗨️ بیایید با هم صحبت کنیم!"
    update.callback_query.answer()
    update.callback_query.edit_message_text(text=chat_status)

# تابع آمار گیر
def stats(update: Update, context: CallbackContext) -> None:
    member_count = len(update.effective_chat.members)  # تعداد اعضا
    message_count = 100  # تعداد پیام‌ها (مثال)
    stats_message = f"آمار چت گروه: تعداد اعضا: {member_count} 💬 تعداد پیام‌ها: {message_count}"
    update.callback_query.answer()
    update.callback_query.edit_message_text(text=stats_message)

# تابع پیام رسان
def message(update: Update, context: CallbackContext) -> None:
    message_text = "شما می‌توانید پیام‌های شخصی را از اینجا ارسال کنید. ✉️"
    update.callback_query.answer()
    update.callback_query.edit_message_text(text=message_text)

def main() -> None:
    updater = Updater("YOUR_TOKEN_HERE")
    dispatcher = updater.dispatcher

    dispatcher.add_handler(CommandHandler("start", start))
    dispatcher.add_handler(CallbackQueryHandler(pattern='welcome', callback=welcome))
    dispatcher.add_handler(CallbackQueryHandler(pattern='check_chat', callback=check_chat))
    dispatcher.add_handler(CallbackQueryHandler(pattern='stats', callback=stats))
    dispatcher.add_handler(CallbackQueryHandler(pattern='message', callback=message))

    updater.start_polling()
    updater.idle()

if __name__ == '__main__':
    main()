@@ -1,0 +1,57 @@
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext
+
+# تابع استارت
+def start(update: Update, context: CallbackContext) -> None:
+    welcome_text = "سلام! به ربات خوشامدگوی ما خوش آمدید! 🎉 برای استفاده از دستورات، لطفاً یکی از گزینه‌های زیر را انتخاب کنید."
+    keyboard = [
+        [InlineKeyboardButton("خوشامدگویی", callback_data='welcome')],
+        [InlineKeyboardButton("چک چت گروه", callback_data='check_chat')],
+        [InlineKeyboardButton("آمار چت گروه", callback_data='stats')],
+        [InlineKeyboardButton("پیام رسان", callback_data='message')],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    update.message.reply_text(welcome_text, reply_markup=reply_markup)
+
+# تابع خوشامدگویی
+def welcome(update: Update, context: CallbackContext) -> None:
+    user_name = update.callback_query.from_user.first_name
+    welcome_message = f"خوش آمدید، {user_name}! 🎈 امیدوارم از گپ و گفت لذت ببرید."
+    update.callback_query.answer()
+    update.callback_query.edit_message_text(text=welcome_message)
+
+# تابع چک چت گروه
+def check_chat(update: Update, context: CallbackContext) -> None:
+    chat_status = "در حال حاضر، این چت گروهی فعال است. 🗨️ بیایید با هم صحبت کنیم!"
+    update.callback_query.answer()
+    update.callback_query.edit_message_text(text=chat_status)
+
+# تابع آمار گیر
+def stats(update: Update, context: CallbackContext) -> None:
+    member_count = len(update.effective_chat.members)  # تعداد اعضا
+    message_count = 100  # تعداد پیام‌ها (مثال)
+    stats_message = f"آمار چت گروه: تعداد اعضا: {member_count} 💬 تعداد پیام‌ها: {message_count}"
+    update.callback_query.answer()
+    update.callback_query.edit_message_text(text=stats_message)
+
+# تابع پیام رسان
+def message(update: Update, context: CallbackContext) -> None:
+    message_text = "شما می‌توانید پیام‌های شخصی را از اینجا ارسال کنید. ✉️"
+    update.callback_query.answer()
+    update.callback_query.edit_message_text(text=message_text)
+
+def main() -> None:
+    updater = Updater("8302421655:AAHCt4CVN44MTwguuBk5CQBlUqvYJlOHHt4")
+    dispatcher = updater.dispatcher
+
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(CallbackQueryHandler(pattern='welcome', callback=welcome))
+    dispatcher.add_handler(CallbackQueryHandler(pattern='check_chat', callback=check_chat))
+    dispatcher.add_handler(CallbackQueryHandler(pattern='stats', callback=stats))
+    dispatcher.add_handler(CallbackQueryHandler(pattern='message', callback=message))
+
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
