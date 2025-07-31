@@ -1,0 +1,48 @@
+   from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+   from telegram.ext import Updater, CommandHandler, CallbackContext
+
+   TOKEN = 'YOUR_BOT_TOKEN'  # توکن ربات خود را وارد کنید
+
+   # تابع استارت
+   def start(update: Update, context: CallbackContext) -> None:
+       keyboard = [
+           [InlineKeyboardButton("اضافه کردن ادمین", callback_data='add_admin')],
+           [InlineKeyboardButton("استخراج اعضا", callback_data='extract_members')],
+           [InlineKeyboardButton("ارسال به پیوی", callback_data='send_to_priv')],
+           [InlineKeyboardButton("خاموشی", callback_data='shutdown')]
+       ]
+       reply_markup = InlineKeyboardMarkup(keyboard)
+       update.message.reply_text('لطفا گزینه مورد نظر را انتخاب کنید:', reply_markup=reply_markup)
+
+   # تابع برای callback ها
+   def button(update: Update, context: CallbackContext) -> None:
+       query = update.callback_query
+       query.answer()
+
+       if query.data == 'add_admin':
+           query.edit_message_text(text="ادمین اضافه شد.")
+           # کد اضافه کردن ادمین
+       elif query.data == 'extract_members':
+           query.edit_message_text(text="اعضا استخراج شدند.")
+           # کد استخراج اعضا
+       elif query.data == 'send_to_priv':
+           query.edit_message_text(text="پیام ارسال شد.")
+           # کد ارسال پیام
+       elif query.data == 'shutdown':
+           query.edit_message_text(text="ربات خاموش شد.")
+           # کد خاموشی
+
+   def main():
+       updater = Updater(TOKEN)
+
+       # ثبت دستورات
+       updater.dispatcher.add_handler(CommandHandler('start', start))
+       updater.dispatcher.add_handler(CallbackQueryHandler(button))
+
+       # شروع ربات
+       updater.start_polling()
+       updater.idle()
+
+   if __name__ == '__main__':
+       main()
+   
