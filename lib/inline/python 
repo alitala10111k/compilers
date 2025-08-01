@@ -1,0 +1,1 @@
+alitala dp.add_handler(ChatMemberHandler(handle_member, ChatMemberHandler.ANY_CHAT_MEMBER, run_async=True))
